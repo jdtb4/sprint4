@@ -15,7 +15,7 @@ function getMoviesFromDirector(array, director) {
 // Exercise 3: Calculate the average of the films of a given director.
 function moviesAverageOfDirector(array, director) {
   let directors = array.filter(movies => movies.director === director);
-  let meanScoreFilms = directors.reduce((acc, item) => acc.score + item.score); //Mejorar / cambiar.
+  let meanScoreFilms = directors.reduce((a, b) => a.score + b.score);
   let scoreAverage= parseFloat((meanScoreFilms / directors.length).toFixed(2));
   return scoreAverage;
 }
@@ -29,19 +29,32 @@ function orderAlphabetically(array) {
 
 // Exercise 5: Order by year, ascending
 function orderByYear(array) {
-  array.map(movies => {
-    let orderedFilmsYear = movies.year.sort((a,b) =>(a - b));
-    console.log(orderedFilmsYear);
-  });
-  
-  
-  
-  return orderedFilmsYear;
+  let orderedFilmsYearAZ = [...array]; // Create new array
+  orderedFilmsYearAZ.sort((a,b) => {
+    if(a.year > b.year){ //Order by year ascending
+      return 1; 
+    } else if(b.year > a.year){
+      return -1;
+    }
+    else{ 
+      if(a.title > b.title){
+        return 1;
+      
+    }else if(b.title > a.title){
+      return -1;
+    }
+    return 0;
+}})
+  return orderedFilmsYearAZ;
 }
 
 // Exercise 6: Calculate the average of the movies in a category
-function moviesAverageByCategory() {
-
+function moviesAverageByCategory(array, genre) {
+  let genreMovies = array.filter(movies => movies.genre.includes(genre)); 
+  let genreMoviesScore = genreMovies.filter(movies => movies.score !== '');
+  let genreAverageScore = genreMoviesScore.reduce((a,b) => a.score + b.score);
+  let averageCategory = parseFloat((genreAverageScore / genreMoviesScore.length).toFixed(2));
+  return averageCategory;
 }
 
 // Exercise 7: Modify the duration of movies to minutes
@@ -52,8 +65,10 @@ function hoursToMinutes() {
 // Exercise 8: Get the best film of a year
 function bestFilmOfYear() {
   let moviesForYear = array.filter(movies => movies.year === year);
-  let orderedMovies = moviesForYear.sort((a,b) => (a.score > b.score) ? 1 : -1);
-  let bestFilmOfYear = orderedMovies
+  let orderedMoviesScore = [...moviesForYear].sort((a,b) => (a.score < b.score) ? 1 : -1);
+
+  console.log(moviesForYear);
+  return orderedMoviesScore;
 }
 
 
