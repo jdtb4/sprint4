@@ -74,7 +74,6 @@ function hoursToMinutes(array) {
     let moviesDurationMinutes = {...movies, duration}; return moviesDurationMinutes;
   })
   return durationMovies;
-  
 }
 
 // Exercise 8: Get the best film of a year
